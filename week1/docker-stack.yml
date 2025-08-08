@@ -3,7 +3,7 @@ version: '3.8'
 
 services:
   web:
-    image: simple-web-app:latest
+    image: lasmbcw1:latest
     ports:
       - "5000:5000"
     depends_on:
@@ -35,7 +35,7 @@ services:
 
 secrets:
   redis_password:
-    file: ./redis_password.txt
+    external: true
 
 networks:
   app-network:

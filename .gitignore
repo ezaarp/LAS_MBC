@@ -1,8 +1,8 @@
-# Sensitive files - JANGAN upload ke GitHub!
 redis_password.txt
 *.password
 *.secret
 *.key
+/Dokumentasi_week1/
 
 # Environment files
 .env

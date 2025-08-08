@@ -8,18 +8,19 @@ services:
       - "5000:5000"
     depends_on:
       - redis
-    environment:
-      - REDIS_PASSWORD=myredispassword123
+    volumes:
+      - ./redis_password.txt:/run/secrets/redis_password:ro
     networks:
       - app-network
 
   redis:
     image: redis:7-alpine
-    command: redis-server --requirepass myredispassword123
+    command: sh -c 'redis-server --requirepass "$$(cat /run/secrets/redis_password)"'
     ports:
       - "6379:6379"
     volumes:
       - redis-data:/data
+      - ./redis_password.txt:/run/secrets/redis_password:ro
     networks:
       - app-network
 
