@@ -1,0 +1,45 @@
+# Docker Stack untuk Docker Swarm dengan Secret
+version: '3.8'
+
+services:
+  web:
+    image: simple-web-app:latest
+    ports:
+      - "5000:5000"
+    depends_on:
+      - redis
+    secrets:
+      - redis_password
+    deploy:
+      replicas: 2
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+    networks:
+      - app-network
+
+  redis:
+    image: redis:7-alpine
+    command: sh -c 'redis-server --requirepass "$$(cat /run/secrets/redis_password)"'
+    secrets:
+      - redis_password
+    volumes:
+      - redis-data:/data
+    deploy:
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    networks:
+      - app-network
+
+secrets:
+  redis_password:
+    file: ./redis_password.txt
+
+networks:
+  app-network:
+    driver: overlay
+
+volumes:
+  redis-data:

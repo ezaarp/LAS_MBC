@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pesan Tersimpan</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .message-item {
+            background-color: #f8f9fa;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border-left: 4px solid #007bff;
+        }
+        .no-messages {
+            text-align: center;
+            color: #6c757d;
+            font-style: italic;
+            padding: 30px;
+        }
+        .btn {
+            background-color: #6c757d;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 20px 0;
+        }
+        .btn:hover {
+            background-color: #545b62;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Pesan Tersimpan</h1>
+        
+        <a href="/" class="btn">Kembali ke Form</a>
+        
+        {% if messages %}
+            <h3>Pesan dari Users ({{ messages|length }} pesan terakhir):</h3>
+            {% for message in messages %}
+                <div class="message-item">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="no-messages">
+                Belum ada pesan tersimpan.<br>
+                <a href="/">Kirim pesan pertama!</a>
+            </div>
+        {% endif %}
+
+    </div>
+</body>
+</html>
